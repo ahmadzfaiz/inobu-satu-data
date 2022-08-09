@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+'''
+# Default Authentication Setting
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+'''
 
 # Application definition
 
@@ -37,6 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Imported Apps
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    # Created Apps
+    'api',
 ]
 
 MIDDLEWARE = [
