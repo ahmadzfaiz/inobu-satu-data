@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Catalog Data {% endblock %} 
+{% block style %}
+<style>
+  .link-style{
+    text-decoration: none;
+    color: black;
+  }
+
+  .link-style:hover{
+    text-decoration: none;
+    color: grey;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'navbar_catalog.html' %}
+<div class="container mt-4">
+  {% for catalog in catalog_list %}
+  <span class="badge rounded-pill bg-primary">Author: {{catalog.author}}</span>
+  <h2><a class="link-style" href="#">{{catalog.title}}</a></h2>
+  <br>
+  {% endfor %}
+</div>
+{% endblock %}
