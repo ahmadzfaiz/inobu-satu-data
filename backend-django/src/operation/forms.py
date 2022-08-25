@@ -8,4 +8,4 @@ class LoginForm(forms.Form):
 class CatalogInsertForm(forms.ModelForm):
     class Meta:
         model = Catalog
-        fields = ('title', 'url', 'description')
+        fields = ('title'  'url'  'description')
