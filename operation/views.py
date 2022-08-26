@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from .models import Catalog
-from .forms import LoginForm, CatalogInsertForm
+from .forms import LoginForm, UserRegistration , CatalogInsertForm
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html')
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -23,10 +27,27 @@ def user_login(request):
     
     return render(request, 'account/login.html', {'form': form})
 
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistration(request.POST)
+
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return render(request, 'account/register_done.html', {'user_form': user_form})
+
+    else: 
+        user_form = UserRegistration()
+
+    return render(request, 'account/register.html', {'user_form': user_form})
+    
+@login_required
 def catalog(request):
     catalog = Catalog.objects.all().order_by('-published')
     return render(request, 'catalog.html', {'catalog_list': catalog})
 
+@login_required
 def catalog_insert_form(request):
     if request.method == 'POST':
         catalog_form = CatalogInsertForm(request.POST)
@@ -35,7 +56,7 @@ def catalog_insert_form(request):
             catalog = catalog_form.save(commit=False)
             catalog.author = request.user
             catalog.save()
-            return redirect('catalog')
+            return redirect('catalog_list')
         
     else:
         catalog_form = CatalogInsertForm()

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'catalog_list' %}">
+      <a class="navbar-brand" href="{% url 'home' %}">
         <img src="https://inobu.org/wp-content/uploads/2020/02/INOBU-FINAL-768x255.png" alt="" height="30" class="d-inline-block align-text-top">
         <b>Satu Data Demo</b>
       </a>
@@ -40,7 +40,7 @@
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Register</a>
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
           </li>
 
           {% endif %}
