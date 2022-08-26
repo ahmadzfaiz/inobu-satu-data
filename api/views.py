@@ -1,4 +1,3 @@
-# from msilib.schema import Class
 from django.contrib.auth.models import User
 from rest_framework import status, generics, mixins, viewsets
 from rest_framework.authentication import TokenAuthentication
