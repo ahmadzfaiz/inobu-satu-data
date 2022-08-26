@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .models import Catalog
@@ -45,7 +45,7 @@ def register(request):
 @login_required
 def catalog(request):
     catalog = Catalog.objects.all().order_by('-published')
-    return render(request, 'catalog.html', {'catalog_list': catalog})
+    return render(request, 'catalog/catalog.html', {'catalog_list': catalog})
 
 @login_required
 def catalog_insert_form(request):
@@ -61,4 +61,8 @@ def catalog_insert_form(request):
     else:
         catalog_form = CatalogInsertForm()
     
-    return render(request, 'account/add_catalog.html', {'catalog_form': catalog_form})
+    return render(request, 'catalog/add_catalog.html', {'catalog_form': catalog_form})
+
+def catalog_details(request, slug):
+    catalog = get_object_or_404(Catalog, slug=slug)
+    return render(request, 'catalog/details.html', {'catalog': catalog})

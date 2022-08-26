@@ -17,11 +17,11 @@
 {% endblock %}
 
 {% block body %}
-{% include 'navbar_catalog.html' %}
+{% include 'catalog/navbar_catalog.html' %}
 <div class="container mt-4">
   {% for catalog in catalog_list %}
   <span class="badge rounded-pill bg-primary">Author: {{catalog.author}}</span>
-  <h2><a class="link-style" href="#">{{catalog.title}}</a></h2>
+  <h2><a class="link-style" href="{% url 'catalog_details' catalog.slug %}">{{catalog.title}}</a></h2>
   <br>
   {% endfor %}
 </div>
