@@ -102,27 +102,13 @@ WSGI_APPLICATION = 'satudata.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'daj59grl57q6nd',
+        'USER': 'msgbowdmkxmjoy',
+        'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
-
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'satu-data',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'datamanagement18',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
-
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'daj59grl57q6nd',
-    #     'USER': 'msgbowdmkxmjoy',
-    #     'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
-    #     'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
-    #     'PORT': '5432',
-    # }
 }
 
 # Password validation
