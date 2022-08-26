@@ -1,10 +1,10 @@
-from msilib.schema import Class
-from .models import Article
-from .serializers import ArticleSerializer, UserSerializer
+# from msilib.schema import Class
+from django.contrib.auth.models import User
 from rest_framework import status, generics, mixins, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
+from .models import Article
+from .serializers import ArticleSerializer, UserSerializer
 
 #🔐USER REGISTRATION
 class UserViewSet(viewsets.ModelViewSet):
