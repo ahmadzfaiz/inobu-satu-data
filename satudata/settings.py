@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$norgj11*0%xeil1vi+fd8yyti7&)zk=vy(!ov7!*m25qw5&u$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inobu-satu-data.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 '''
 # Default Authentication Setting
