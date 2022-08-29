@@ -39,6 +39,10 @@ REST_FRAMEWORK = {
 # Application definition
 
 INSTALLED_APPS = [
+    # Admin Interface
+    "admin_interface",
+    "colorfield",
+
     # Django Default Apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -87,6 +91,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -157,3 +162,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Crispy Form settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# Admin Interface
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+# Media
+MEDIA_ROOT = BASE_DIR
+MEDIA_URL = '/media/'
