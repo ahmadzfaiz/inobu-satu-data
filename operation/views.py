@@ -8,6 +8,10 @@ from .forms import LoginForm, UserRegistration , CatalogInsertForm
 def home(request):
     return render(request, 'home.html')
 
+@login_required
+def login_home(request):
+    return render(request, 'login_home.html')
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -41,11 +45,11 @@ def register(request):
         user_form = UserRegistration()
 
     return render(request, 'account/register.html', {'user_form': user_form})
-    
+
 @login_required
-def catalog(request):
+def catalog_restapi(request):
     catalog = Catalog.objects.all().order_by('-published')
-    return render(request, 'catalog/catalog.html', {'catalog_list': catalog})
+    return render(request, 'catalog/catalog_restapi.html', {'catalog_list': catalog})
 
 @login_required
 def catalog_insert_form(request):
@@ -56,13 +60,13 @@ def catalog_insert_form(request):
             catalog = catalog_form.save(commit=False)
             catalog.author = request.user
             catalog.save()
-            return redirect('catalog_list')
+            return redirect('catalog_api')
         
     else:
         catalog_form = CatalogInsertForm()
     
-    return render(request, 'catalog/add_catalog.html', {'catalog_form': catalog_form})
+    return render(request, 'catalog/catalog_restapi_add.html', {'catalog_form': catalog_form})
 
 def catalog_details(request, slug):
     catalog = get_object_or_404(Catalog, slug=slug)
-    return render(request, 'catalog/details.html', {'catalog': catalog})
+    return render(request, 'catalog/catalog_restapi_details.html', {'catalog': catalog})

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Catalog Data {% endblock title %} 
+{% block title %} Catalog Data | REST API {% endblock title %} 
 {% block head %}
 <style>
   .link-style{
@@ -17,7 +17,7 @@
 {% endblock head %}
 
 {% block body %}
-{% include 'catalog/navbar_catalog.html' %}
+{% include 'catalog/catalog_restapi_navbar.html' %}
 <div class="container mt-4">
   {% for catalog in catalog_list %}
   <span class="badge rounded-pill bg-primary">Author: {{catalog.author}}</span>
