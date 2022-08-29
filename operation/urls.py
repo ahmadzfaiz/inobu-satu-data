@@ -7,7 +7,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', register, name='register'),
-    path('catalog/', catalog, name='catalog_list'),
+    path('catalog/rest-api', catalog, name='catalog_api'),
     path('catalog/<slug:slug>/', catalog_details, name='catalog_details'),
     path('add-catalog/', catalog_insert_form, name='catalog_form'),
 ]

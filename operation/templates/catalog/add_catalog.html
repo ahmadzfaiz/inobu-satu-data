@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %} Add Catalog Data {% endblock %}
-{% block style %} 
+{% block title %} Add Catalog Data {% endblock title %}
+{% block head %} 
     <style>
         .catalog_style{
             width: 500px;
             margin: auto;
         }
     </style>
-{% endblock %}
+{% endblock head %}
 
 {% block body %}
     <div class="container mt-4 catalog_style">
@@ -20,4 +20,4 @@
             <input type="submit" value="Add Catalog" class="btn btn-success">
         </form>
     </div>
-{% endblock %}
+{% endblock body %}

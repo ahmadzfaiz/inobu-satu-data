@@ -1,16 +1,30 @@
 {%extends 'base.html' %}
+{% load static %}
 
-{%block title%} Catalog Details {%endblock%}
-{%block style%} {%endblock%}
+{%block title%} Catalog Details {%endblock title%}
+{%block head%} 
+    <style>
+        .button-text{
+            color:black;
+            text-decoration: none;
+        }
+    </style>
+{%endblock head%}
 {%block body%} 
     <div class="container mt-4">
         <h1> {{catalog.title}} </h1>
         <h6> Published {{catalog.published}} by <i> {{catalog.author}} </i> </h6>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Url data</span>
-            <input type="text" class="form-control" value="{{catalog.url}}" readonly>
+            <span class="input-group-text" id="basic-addon1">
+                <a href="{{catalog.url}}" class="btn button-text" target="_blank">Go to</a>
+            </span>
+            <input type="text" class="form-control" id="url-data" value="{{catalog.url}}" readonly>
+            <span class="input-group-text" id="basic-addon1">
+                <button class="btn copy-button" data-url="{{catalog.url}}">Copy</button>
+            </span>
         </div>
         <h5>Deskripsi</h5>
         <p> {{catalog.description}} </p>
     </div> 
-{%endblock%}
+    <script src="{% static 'CopyClipboard.js' %}" defer></script>
+{%endblock body%}

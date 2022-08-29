@@ -39,9 +39,7 @@ REST_FRAMEWORK = {
 # Application definition
 
 INSTALLED_APPS = [
-    # Created App
-    'operation',
-
+    # Django Default Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +57,7 @@ INSTALLED_APPS = [
 
     # Created Apps
     'api',
+    'operation',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +146,7 @@ LOGIN_REDIRECT_URL = 'catalog_list'
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
