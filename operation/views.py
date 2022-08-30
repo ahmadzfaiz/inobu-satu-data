@@ -52,8 +52,8 @@ def catalog_restapi(request):
     catalog = Catalog.objects.all().order_by('-published')
     return render(request, 'catalog/catalog_restapi.html', {'catalog_list': catalog})
 
+# @permission_required(['operation.add_catalog'])
 @login_required
-@permission_required(['operation.add_catalog'])
 def catalog_insert_form(request):
     if request.method == 'POST':
         catalog_form = CatalogInsertForm(request.POST)

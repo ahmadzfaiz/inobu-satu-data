@@ -11,6 +11,6 @@ urlpatterns = [
     path('welcome/register/', register, name='register'),
     path('catalog/rest-api', catalog_restapi, name='catalog_api'),
     path('catalog/<slug:slug>/', catalog_details, name='catalog_details'),
-    path('catalog/add-catalog/', catalog_insert_form, name='catalog_form'),
+    path('add-catalog/', catalog_insert_form, name='catalog_form'),
     path("sql-query/", include(django_sql_dashboard.urls)),
 ]
