@@ -1,0 +1,14 @@
+<p>Add {% if not query_results %}a{% else %}another{% endif %} query:</p>
+<textarea
+  class="form-control"
+  style="
+    height: 10em;
+    border: 2px solid #666;
+  "
+  name="sql"
+></textarea>
+<input
+  class="btn btn-primary mt-2"
+  type="submit"
+  value="Run quer{% if query_results|length > 1 %}ies{% else %}y{% endif %}"
+/>

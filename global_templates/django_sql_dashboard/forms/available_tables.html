@@ -1,0 +1,24 @@
+{% load django_sql_dashboard %}
+
+<h2>Available tables</h2>
+<p>For more information about tables, please check the documentation in <a href="">here</a></p>
+<table class="table table-striped">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th scope="col">Table Name</th>
+            <th scope="col">Table Columns</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for table in available_tables %}
+        <tr>
+            <th>
+                <a href="?sql={% filter sign_sql %}select count(*) from {{ table.name }}{% endfilter %}&sql={% autoescape off %}{% filter sign_sql|urlencode %}select {{ table.sql_columns }} from {{ table.name }}{% endfilter %}{% endautoescape %}">{{ table.name }}</a>
+            </th>
+            <th>
+                <span style="font-weight:normal"><p>{{ table.columns }}</p></span>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

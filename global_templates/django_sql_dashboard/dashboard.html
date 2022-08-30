@@ -1,0 +1,77 @@
+{% extends "django_sql_dashboard/base.html" %}
+{% load django_sql_dashboard %}
+
+{% block title %}Inobu Satu Data | {{ html_title }}{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">SQL Query</h1>
+
+{% if too_long_so_use_post %}
+  <p style="background-color: pink; padding: 0.5em 1em 1em 1em; border: 2px solid red; margin-bottom: 1em">
+    This SQL is too long to bookmark, so sharing a link to this page will not work for these queries.
+  </p>
+{% endif %}
+
+{% if unverified_sql_queries %}
+  <div style="background-color: pink; padding: 0.5em 1em 1em 1em; border: 2px solid red; margin-bottom: 1em">
+    <h2 style="margin-top: 0.5em">Unverified SQL</h2>
+    <p>The link you followed here included SQL that was missing its verification signatures.</p>
+    <p>If this link was provided to you by an untrusted source, they may be trying to trick you into executing queries that you do not want to execute.</p>
+    <p>Review these queries and copy and paste them once you have confirmed them:</p>
+    {% for query in unverified_sql_queries %}
+      <p><textarea>{{ query }}</textarea></p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<form action="{{ request.path }}" method="POST">
+  {% csrf_token %}
+  {% if query_results %}
+    <p>↓ <a href="#save-dashboard">Save this dashboard</a> | <a href="{{ request.path }}">Remove all queries</a></p>
+  {% endif %}
+
+  {% if parameter_values %}
+    <h3>Query parameters</h3>
+    <div class="query-parameters">
+    {% for name, value in parameter_values %}
+        <label for="qp{{ forloop.counter }}">{{ name }}</label>
+        <input type="text" id="qp{{ forloop.counter }}" name="{{ name }}" value="{{ value }}">
+    {% endfor %}
+    </div>
+    <input
+      class="btn btn-primary"
+      type="submit"
+      value="Run quer{% if query_results|length > 1 %}ies{% else %}y{% endif %}"
+    />
+  {% endif %}
+  
+  {% for result in query_results %}
+    {% include result.templates with result=result %}
+  {% endfor %}
+  
+  <!-- Adding SQL Query Form to show data -->
+  {% include 'django_sql_dashboard/forms/run_query.html' %}
+
+  <!-- Adding container to save the dashboard query -->
+  {% if query_results %}
+    <div class="container rounded bg-light mt-5 pt-1 pb-1">
+      {% include 'django_sql_dashboard/forms/save_this_dashboard.html' %}
+    </div>
+  {% endif %}
+
+</form>
+
+<!-- Adding list of dashboard tables -->
+{% if saved_dashboards %}
+<div class="mt-5">
+  {% include 'django_sql_dashboard/forms/dashboard_tables.html' %}
+</div>
+{% endif %}
+
+<!-- Adding list of available tables -->
+<div class="mt-5">
+  {% include 'django_sql_dashboard/forms/available_tables.html' %}
+</div>
+
+{% include "django_sql_dashboard/_script.html" %}
+{% endblock %}

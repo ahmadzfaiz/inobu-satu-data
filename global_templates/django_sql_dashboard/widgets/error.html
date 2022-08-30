@@ -1,0 +1,24 @@
+<div class="query-results query-error">
+  {% if saved_dashboard %}
+    <pre class="sql">{{ result.sql }}</pre>
+  {% else %}
+    <textarea 
+      class="form-control" 
+      style="
+        height: 10em;
+        border: 2px solid #666;"
+      name="sql" 
+      rows="{{ result.textarea_rows }}"
+    >
+      {{ result.sql }}
+    </textarea>
+  {% endif %}
+  <p>
+    <input 
+      class="btn btn-warning mt-2" 
+      type="submit"
+      value="Fix the quer{% if query_results|length > 1 %}ies{% else %}y{% endif %}"
+    >
+  </p>
+  <p class="error-message" style="background-color: pink; padding: 1em; margin: 1em 0">{{ result.error }}</p>
+</div>

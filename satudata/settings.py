@@ -116,7 +116,7 @@ DATABASES = {
         'PORT': '5432',
     },
 
-    'dashboard': {
+    'sql-query': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'daj59grl57q6nd',
         'USER': 'msgbowdmkxmjoy',
@@ -162,10 +162,12 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = 'login_home'
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Media files (jpg, png, gif)
+MEDIA_ROOT = BASE_DIR
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -180,6 +182,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
-# Media
-MEDIA_ROOT = BASE_DIR
-MEDIA_URL = '/media/'
+# SQL Query Setting
+DASHBOARD_DB_ALIAS = 'sql-query'
+DASHBOARD_ROW_LIMIT = 1000
+DASHBOARD_ENABLE_FULL_EXPORT = True

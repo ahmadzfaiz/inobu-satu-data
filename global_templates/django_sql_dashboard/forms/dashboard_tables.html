@@ -1,0 +1,39 @@
+<h2>Saved dashboards</h2>
+
+<table class="table table-striped">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th scope="col">Dashboard Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Visibility</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dashboard, can_edit in saved_dashboards %}
+        <tr>
+            <th>
+                <a href="{{ dashboard.get_absolute_url }}" title="{{ dashboard.description }}">{{ dashboard }}</a>
+                {% if can_edit %}
+                    - <a href="{{ dashboard.get_edit_url }}">edit</a>
+                {% endif %}
+            </th>
+            <th>
+                <span style="font-weight:normal">
+                    <p>{{ dashboard.owned_by }}</p>
+                </span>
+            </th>
+            <th>
+                <span style="font-weight:normal">
+                    <p>{{ dashboard.view_summary }}</p>
+                </span>
+            </th>
+            <th>
+                <span style="font-weight:normal">
+                    <p>{{ dashboard.description}}</p>
+                </span>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

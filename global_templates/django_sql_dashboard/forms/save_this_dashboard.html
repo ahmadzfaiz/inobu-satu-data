@@ -1,0 +1,15 @@
+{% load django_sql_dashboard %}
+{% load crispy_forms_tags %}
+
+<h2 id="save-dashboard">Save this dashboard</h2>
+<p>Saved dashboards get their own URL, which can be bookmarked and shared with others.</p>
+<div class="save-dashboard-form">
+  {{ save_form.non_field_errors|crispy }}
+  {{ save_form|crispy }}
+  <p><input
+    class="btn btn-primary"
+    type="submit"
+    name="_save"
+    value="Save dashboard"
+  /></p>
+</div>
