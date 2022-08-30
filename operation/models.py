@@ -10,8 +10,8 @@ class Tag(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        self.username = self.name.lower()
-        return super(User, self).save(*args, **kwargs)
+        self.name = self.name.lower()
+        return super(Tag, self).save(*args, **kwargs)
 
 class Catalog(models.Model):
     title = models.CharField(max_length=200, blank=False)
