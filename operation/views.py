@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Catalog
 from .forms import LoginForm, UserRegistration , CatalogInsertForm
 
@@ -47,11 +47,13 @@ def register(request):
     return render(request, 'account/register.html', {'user_form': user_form})
 
 @login_required
+@permission_required(['operation.view_catalog'])
 def catalog_restapi(request):
     catalog = Catalog.objects.all().order_by('-published')
     return render(request, 'catalog/catalog_restapi.html', {'catalog_list': catalog})
 
 @login_required
+@permission_required(['operation.add_catalog'])
 def catalog_insert_form(request):
     if request.method == 'POST':
         catalog_form = CatalogInsertForm(request.POST)

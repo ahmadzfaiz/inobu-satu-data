@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap5",
     'psycopg2',
+    "django_sql_dashboard",
 
     # Created Apps
     'api',
@@ -113,6 +114,18 @@ DATABASES = {
         'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
         'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
         'PORT': '5432',
+    },
+
+    'dashboard': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'daj59grl57q6nd',
+        'USER': 'msgbowdmkxmjoy',
+        'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
+        'PORT': '5432',
+        "OPTIONS": {
+            "options": "-c default_transaction_read_only=on -c statement_timeout=100"
+        },
     }
 }
 
