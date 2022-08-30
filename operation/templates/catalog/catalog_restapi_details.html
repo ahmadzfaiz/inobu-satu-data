@@ -14,7 +14,10 @@
     <div class="container mt-4">
         <h1> {{catalog.title}} </h1>
         <h6> Published {{catalog.published}} by <i> {{catalog.author}} </i> </h6>
-        <div class="input-group mb-3">
+        {% for tag in catalog.tags.all %}
+        <span class="badge rounded-pill bg-success">{{tag}}</span>
+        {% endfor %}
+        <div class="input-group mt-3 mb-3">
             <span class="input-group-text" id="basic-addon1">
                 <a href="{{catalog.url}}" class="btn button-text" target="_blank">Go to</a>
             </span>

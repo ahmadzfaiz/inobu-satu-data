@@ -22,7 +22,10 @@
   {% for catalog in catalog_list %}
   <span class="badge rounded-pill bg-primary">Author: {{catalog.author}}</span>
   <h2><a class="link-style" href="{% url 'catalog_details' catalog.slug %}">{{catalog.title}}</a></h2>
-  <br>
+  {% for tag in catalog.tags.all %}
+  <span class="badge rounded-pill bg-success">{{tag}}</span>
+  {% endfor %}
+  <hr>
   {% endfor %}
 </div>
 {% endblock body %}
