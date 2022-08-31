@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Update Catalog Data | {{form.title}} {% endblock title %}
+{% block head %} 
+    <style>
+        .catalog_style{
+            width: 500px;
+            margin: auto;
+        }
+    </style>
+{% endblock head %}
+
+{% block body %}
+    <div class="container mt-4 catalog_style">
+        <h3>Update Catalog</h3>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Update Catalog" class="btn btn-success">
+        </form>
+    </div>
+{% endblock body %}

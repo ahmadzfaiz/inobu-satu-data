@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Add Catalog Tag | REST API {% endblock title %}
+{% block head %} 
+    <style>
+        .catalog_style{
+            width: 500px;
+            margin: auto;
+        }
+    </style>
+{% endblock head %}
+
+{% block body %}
+    <div class="container mt-4 catalog_style">
+        <h3>Add Tag</h3>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ tag|crispy }}
+            <input type="submit" value="Add Tag" class="btn btn-success">
+        </form>
+    </div>
+{% endblock body %}

@@ -28,6 +28,13 @@
         </div>
         <h5>Deskripsi</h5>
         <p> {{catalog.description}} </p>
+
+        {% if request.user == catalog.author %}
+        <div class="mt-4">
+            <a class="btn btn-success mx-3" href="{% url 'catalog_update_form' catalog.slug %}">Update</a>
+            <a class="btn btn-danger mx-3" href="{% url 'catalog_delete_form' catalog.slug %}">Delete</a>
+        </div>
+        {% endif%}
     </div> 
     <script src="{% static 'CopyClipboard.js' %}" defer></script>
 {%endblock body%}

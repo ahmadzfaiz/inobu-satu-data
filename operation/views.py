@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import Catalog
-from .forms import LoginForm, UserRegistration , CatalogInsertForm
+from .forms import LoginForm, UserRegistration , CatalogInsertForm, CatalogUpdateForm, CatalogInsertTag
 
 # Create your views here.
 def home(request):
@@ -62,6 +62,7 @@ def catalog_insert_form(request):
             catalog = catalog_form.save(commit=False)
             catalog.author = request.user
             catalog.save()
+            catalog_form.save_m2m()
             return redirect('catalog_api')
         
     else:
@@ -69,6 +70,38 @@ def catalog_insert_form(request):
     
     return render(request, 'catalog/catalog_restapi_add.html', {'catalog_form': catalog_form})
 
+@login_required
+def catalog_update_form(request, slug):
+    catalog = get_object_or_404(Catalog, slug=slug)
+    form = CatalogUpdateForm(request.POST or None, instance=catalog)
+
+    if form.is_valid():
+        form.save()
+        return redirect('catalog_api')
+
+    return render(request, 'catalog/catalog_restapi_update.html', {'form':form})
+
+@login_required
+def catalog_delete_form(request, slug):
+    catalog = get_object_or_404(Catalog, slug=slug)
+    catalog.delete()
+    return redirect('catalog_api')
+
+@login_required
 def catalog_details(request, slug):
     catalog = get_object_or_404(Catalog, slug=slug)
     return render(request, 'catalog/catalog_restapi_details.html', {'catalog': catalog})
+
+@login_required
+def catalog_insert_tag(request):
+    if request.method == 'POST':
+        tag = CatalogInsertTag(request.POST)
+
+        if tag.is_valid():
+            tag.save()
+            return redirect('catalog_api')
+        
+    else:
+        tag = CatalogInsertTag()
+    
+    return render(request, 'catalog/catalog_restapi_tag.html', {'tag': tag})

@@ -1,7 +1,6 @@
-from xml.dom import ValidationErr
 from django import forms
 from django.contrib.auth.models import User
-from .models import Catalog
+from .models import Catalog, Tag
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -25,4 +24,14 @@ class UserRegistration(forms.ModelForm):
 class CatalogInsertForm(forms.ModelForm):
     class Meta:
         model = Catalog
-        fields = ('title', 'url', 'description')
+        fields = ('title', 'tags', 'url', 'description')
+
+class CatalogUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Catalog
+        fields = ('title', 'tags', 'url', 'description')
+
+class CatalogInsertTag(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ('name',)
