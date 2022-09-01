@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import Catalog, Tag, Dashboard
 from .forms import *
 
+from rest_framework.authtoken.models import Token
 
 # BASIC VIEW
 def home(request):
@@ -46,6 +47,16 @@ def register(request):
         user_form = UserRegistration()
 
     return render(request, 'account/register.html', {'user_form': user_form})
+
+def my_profile(request):   
+    username = request.user
+    full_name = request.user.get_full_name()
+    try:
+        auth = Token.objects.get(user_id=username.id)
+    except Token.DoesNotExist:
+        auth = None
+    
+    return render(request, 'account/profile_details.html', {'username': username, 'full_name': full_name, 'auth': auth})
 
 
 # CATALOG REST API VIEW
