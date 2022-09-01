@@ -26,7 +26,7 @@ urlpatterns = [
     # product data
     path('product/dashboard', product_dashboard, name='product_dashboard'),
     path('product/dashboard/<slug:slug>/', product_dashboard_details, name='product_dashboard_details'),
-    path('product/dashboard/add/', dashboard_insert_form, name='dashboard_add_form'),
+    path('product/add-dashboard/', dashboard_insert_form, name='dashboard_add_form'),
     path('product/dashboard/update/<slug:slug>/', dashboard_update_form, name='dashboard_update_form'),
     path('product/dashboard/delete/<slug:slug>/', dashboard_delete_form, name='dashboard_delete_form'),
 ]
