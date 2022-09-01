@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Catalog, Tag
+from .models import Catalog, Tag, Dashboard
 
+# BASIC FORMS
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -21,6 +22,7 @@ class UserRegistration(forms.ModelForm):
 
         return cd['password2']
 
+# CATALOG RESTAPI FORMS
 class CatalogInsertForm(forms.ModelForm):
     class Meta:
         model = Catalog
@@ -35,3 +37,14 @@ class CatalogInsertTag(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ('name',)
+
+# PRODUCT DASHBOARD FORMS
+class DashboardInsertForm(forms.ModelForm):
+    class Meta:
+        model = Dashboard
+        fields = ('title', 'tags', 'url', 'description')
+
+class DashboardUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Dashboard
+        fields = ('title', 'tags', 'url', 'description')

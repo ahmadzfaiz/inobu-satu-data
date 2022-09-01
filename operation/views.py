@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Catalog
-from .forms import LoginForm, UserRegistration , CatalogInsertForm, CatalogUpdateForm, CatalogInsertTag
+from .models import Catalog, Tag, Dashboard
+from .forms import *
 
-# Create your views here.
+
+# BASIC VIEW
 def home(request):
     return render(request, 'home.html')
 
@@ -46,6 +47,8 @@ def register(request):
 
     return render(request, 'account/register.html', {'user_form': user_form})
 
+
+# CATALOG REST API VIEW
 @login_required
 @permission_required(['operation.view_catalog'])
 def catalog_restapi(request):
@@ -94,6 +97,8 @@ def catalog_details(request, slug):
 
 @login_required
 def catalog_insert_tag(request):
+    tag_list = Tag.objects.all()
+
     if request.method == 'POST':
         tag = CatalogInsertTag(request.POST)
 
@@ -104,4 +109,50 @@ def catalog_insert_tag(request):
     else:
         tag = CatalogInsertTag()
     
-    return render(request, 'catalog/catalog_restapi_tag.html', {'tag': tag})
+    return render(request, 'catalog/catalog_restapi_tag.html', {'tag': tag, 'tag_list': tag_list})
+
+
+# PRODUCT DASHBOARD VIEW
+@login_required
+def product_dashboard(request):
+    dashboard = Dashboard.objects.all().order_by('-published')
+    return render(request, 'product/dashboard.html', {'dashboard': dashboard})
+
+@login_required
+def product_dashboard_details(request, slug):
+    dashboard = get_object_or_404(Dashboard, slug=slug)
+    return render(request, 'product/dashboard_details.html', {'dashboard': dashboard})
+
+@login_required
+def dashboard_insert_form(request):
+    if request.method == 'POST':
+        dashboard_form = DashboardInsertForm(request.POST)
+
+        if dashboard_form.is_valid():
+            dashboard = dashboard_form.save(commit=False)
+            dashboard.author = request.user
+            dashboard.save()
+            dashboard_form.save_m2m()
+            return redirect('product_dashboard')
+        
+    else:
+        dashboard_form = CatalogInsertForm()
+    
+    return render(request, 'product/dashboard_add.html', {'dashboard_form': dashboard_form})
+
+@login_required
+def dashboard_update_form(request, slug):
+    dashboard = get_object_or_404(Dashboard, slug=slug)
+    form = DashboardUpdateForm(request.POST or None, instance=dashboard)
+
+    if form.is_valid():
+        form.save()
+        return redirect('product_dashboard')
+
+    return render(request, 'product/dashboard_update.html', {'form':form})
+
+@login_required
+def dashboard_delete_form(request, slug):
+    dashboard = get_object_or_404(Dashboard, slug=slug)
+    dashboard.delete()
+    return redirect('product_dashboard')

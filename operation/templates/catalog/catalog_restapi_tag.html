@@ -3,21 +3,21 @@
 
 {% block title %} Add Catalog Tag | REST API {% endblock title %}
 {% block head %} 
-    <style>
-        .catalog_style{
-            width: 500px;
-            margin: auto;
-        }
-    </style>
 {% endblock head %}
 
 {% block body %}
-    <div class="container mt-4 catalog_style">
+    <div class="container mt-4">
         <h3>Add Tag</h3>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{ tag|crispy }}
-            <input type="submit" value="Add Tag" class="btn btn-success">
+            <input type="submit" value="Add Tag" class="btn btn-success" placeholder="Maximum character is 20">
         </form>
+        <div class="mt-5">
+            <h3>List of tags</h3>
+            {% for t in tag_list %}
+            <span class="badge rounded-pill bg-success">{{t}}</span>
+            {% endfor %}
+        </div>
     </div>
 {% endblock body %}

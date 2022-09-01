@@ -1,0 +1,40 @@
+{%extends 'base.html' %}
+{% load static %}
+
+{%block title%} Dashboard Details {%endblock title%}
+{%block head%} 
+    <style>
+        .button-text{
+            color:black;
+            text-decoration: none;
+        }
+    </style>
+{%endblock head%}
+{%block body%} 
+    <div class="container mt-4">
+        <h1> {{dashboard.title}} </h1>
+        <h6> Published {{dashboard.published}} by <i> {{dashboard.author}} </i> </h6>
+        {% for tag in dashboard.tags.all %}
+        <span class="badge rounded-pill bg-success">{{tag}}</span>
+        {% endfor %}
+        <div class="input-group mt-3 mb-3">
+            <span class="input-group-text" id="basic-addon1">
+                <a href="{{dashboard.url}}" class="btn button-text" target="_blank">Go to</a>
+            </span>
+            <input type="text" class="form-control" id="url-data" value="{{dashboard.url}}" readonly>
+            <span class="input-group-text" id="basic-addon1">
+                <button class="btn copy-button" data-url="{{dashboard.url}}">Copy</button>
+            </span>
+        </div>
+        <h5>Deskripsi</h5>
+        <p> {{dashboard.description}} </p>
+
+        {% if request.user == dashboard.author %}
+        <div class="mt-4">
+            <a class="btn btn-success mx-3" href="{% url 'dashboard_update_form' dashboard.slug %}">Update</a>
+            <a class="btn btn-danger mx-3" href="{% url 'dashboard_delete_form' dashboard.slug %}">Delete</a>
+        </div>
+        {% endif%}
+    </div> 
+    <script src="{% static 'CopyClipboard.js' %}" defer></script>
+{%endblock body%}
