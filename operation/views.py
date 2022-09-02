@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import Catalog, Tag, Dashboard
 from .forms import *
-
 from rest_framework.authtoken.models import Token
+
 
 # BASIC VIEW
 def home(request):
@@ -48,6 +48,7 @@ def register(request):
 
     return render(request, 'account/register.html', {'user_form': user_form})
 
+@login_required
 def my_profile(request):   
     username = request.user
     full_name = request.user.get_full_name()
@@ -167,3 +168,9 @@ def dashboard_delete_form(request, slug):
     dashboard = get_object_or_404(Dashboard, slug=slug)
     dashboard.delete()
     return redirect('product_dashboard')
+
+# DOCUMENTATION VIEW
+@login_required
+def documentation(request):
+    docs = Dashboard.objects.all().order_by('-published')
+    return render(request, 'documentation/home.html', {'docs': docs})

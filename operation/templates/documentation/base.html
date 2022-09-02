@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+    <div class="container row">
+        <div class="col-3 px-0" style="background-color: gainsboro;">
+            {% include 'documentation/sidebar.html' %}
+        </div>
+        <div class="col-9">
+            <div class="container">
+                {% block mainbar %}{% endblock mainbar %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}
