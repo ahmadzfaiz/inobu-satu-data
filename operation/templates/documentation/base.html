@@ -2,14 +2,24 @@
 
 {% block title %}{% endblock title %}
 {% block head %}
+<style>
+    .box-scroll{
+        overflow-y: auto;
+        position:relative;
+        height: 600px;
+    }
+</style>
 {% endblock head %}
 {% block body %}
-    <div class="container row">
+    <div class="row mx-0 my-0" style="overflow-x: hidden;">
         <div class="col-3 px-0" style="background-color: gainsboro;">
             {% include 'documentation/sidebar.html' %}
         </div>
-        <div class="col-9">
-            <div class="container">
+        <div class="col px-0 ms-2">
+            <div class="container mt-3">
+                <h2>{% block docs-title %}{% endblock docs-title %}</h2>
+            </div>
+            <div class="container box-scroll mt-3 mb-3">
                 {% block mainbar %}{% endblock mainbar %}
             </div>
         </div>
