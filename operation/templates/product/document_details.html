@@ -14,8 +14,8 @@
     <div class="container mt-4">
         <h1> {{document.title}} </h1>
         <h6> Published {{document.published}} by <i> {{document.author}} </i> </h6>
-        {% for tag in document.tags.all %}
         <span class="badge rounded-pill bg-warning text-dark">Format: {{document.category}}</span>
+        {% for tag in document.tags.all %}
         <span class="badge rounded-pill bg-success">{{tag}}</span>
         {% endfor %}
         <div class="input-group mt-3 mb-3">
