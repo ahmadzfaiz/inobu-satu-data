@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %} Update Dashboard Data | {{form.title}} {% endblock title %}
+{% block title %} Update Document Data | {{form.title}} {% endblock title %}
 {% block head %} 
     <style>
-        .dashboard_style{
+        .document_style{
             width: 500px;
             margin: auto;
         }
@@ -12,12 +12,12 @@
 {% endblock head %}
 
 {% block body %}
-    <div class="container mt-4 mb-4 dashboard_style">
-        <h3>Update Dashboard</h3>
+    <div class="container mt-4 mb-4 document_style">
+        <h3>Update Document</h3>
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {{ form|crispy }}
-            <input type="submit" value="Update Dashboard" class="btn btn-success">
+            <input type="submit" value="Update Document" class="btn btn-success">
         </form>
     </div>
 {% endblock body %}

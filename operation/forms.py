@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Catalog, Tag, Dashboard
+from .models import Catalog, Tag, Dashboard, Document
 
 # BASIC FORMS
 class LoginForm(forms.Form):
@@ -48,3 +48,14 @@ class DashboardUpdateForm(forms.ModelForm):
     class Meta:
         model = Dashboard
         fields = ('title', 'tags', 'url', 'description')
+
+# PRODUCT DOCUMENT FORMS
+class DocumentInsertForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ('title', 'category', 'tags', 'url', 'description')
+
+class DocumentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ('title', 'category', 'tags', 'url', 'description')

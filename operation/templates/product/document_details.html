@@ -1,0 +1,41 @@
+{%extends 'base.html' %}
+{% load static %}
+
+{%block title%} Document Details {%endblock title%}
+{%block head%} 
+    <style>
+        .button-text{
+            color:black;
+            text-decoration: none;
+        }
+    </style>
+{%endblock head%}
+{%block body%} 
+    <div class="container mt-4">
+        <h1> {{document.title}} </h1>
+        <h6> Published {{document.published}} by <i> {{document.author}} </i> </h6>
+        {% for tag in document.tags.all %}
+        <span class="badge rounded-pill bg-warning text-dark">Format: {{document.category}}</span>
+        <span class="badge rounded-pill bg-success">{{tag}}</span>
+        {% endfor %}
+        <div class="input-group mt-3 mb-3">
+            <span class="input-group-text" id="basic-addon1">
+                <a href="{{document.url}}" class="btn button-text" target="_blank">Go to</a>
+            </span>
+            <input type="text" class="form-control" id="url-data" value="{{document.url}}" readonly>
+            <span class="input-group-text" id="basic-addon1">
+                <button class="btn copy-button" data-url="{{document.url}}">Copy</button>
+            </span>
+        </div>
+        <h5>Deskripsi</h5>
+        <p> {{document.description}} </p>
+
+        {% if request.user == document.author %}
+        <div class="mt-4">
+            <a class="btn btn-success mx-3" href="{% url 'document_update_form' document.slug %}">Update</a>
+            <a class="btn btn-danger mx-3" href="{% url 'document_delete_form' document.slug %}">Delete</a>
+        </div>
+        {% endif%}
+    </div> 
+    <script src="{% static 'CopyClipboard.js' %}" defer></script>
+{%endblock body%}

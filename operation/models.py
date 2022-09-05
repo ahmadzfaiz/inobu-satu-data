@@ -49,3 +49,23 @@ class Dashboard(models.Model):
 
     def __str__(self):
         return self.title
+
+class Document(models.Model):
+    LIST_CATEGORY_CHOICES = [
+        ('document', 'Document format (.doc)'),
+        ('spreadsheet', 'Spreadsheet format (.xls)'),
+        ('presentation', 'Presentation format (.ppt)'),
+        ('portable', 'Portable document format (.pdf)'),
+    ]
+
+    title = models.CharField(max_length=200, blank=False)
+    category = models.CharField(max_length=50, choices=LIST_CATEGORY_CHOICES, default='document')
+    tags = models.ManyToManyField(Tag)
+    url = models.URLField(max_length=200, unique=True, blank=False)
+    description = models.TextField(blank=False)
+    slug = models.SlugField(max_length=100, unique=True)
+    published = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title

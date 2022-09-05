@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Product Data | Document {% endblock title %} 
+{% block head %}
+<style>
+  .link-style{
+    text-decoration: none;
+    color: black;
+  }
+
+  .link-style:hover{
+    text-decoration: none;
+    color: grey;
+  }
+</style>
+{% endblock head %}
+
+{% block body %}
+{% include 'product/document_navbar.html' %}
+<div class="container mt-4">
+  {% for d in document %}
+  <div class="card mt-3 shadow">
+    <div class="card-header">
+      <span class="badge rounded-pill bg-primary">Author: {{d.author}}</span>
+      <span class="badge rounded-pill bg-info">Published at: {{d.published}} Jakarta Time</span>
+      <span class="badge rounded-pill bg-warning text-dark">Format: {{d.category}}</span>
+    </div>
+    <div class="card-body">
+      <h2><a class="link-style" href="{% url 'product_document_details' d.slug %}">{{d.title}}</a></h2>
+    </div>
+    <div class="card-footer">
+      {% for tag in d.tags.all %}
+      <span class="badge rounded-pill bg-success">{{tag}}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock body %}

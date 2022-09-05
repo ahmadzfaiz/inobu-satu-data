@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Catalog, Tag, Dashboard
+from .models import Catalog, Tag, Dashboard, Document
 from .forms import *
 from rest_framework.authtoken.models import Token
 
@@ -116,7 +116,7 @@ def catalog_insert_tag(request):
 
         if tag.is_valid():
             tag.save()
-            return redirect('catalog_api')
+            return redirect('home')
         
     else:
         tag = CatalogInsertTag()
@@ -148,7 +148,7 @@ def dashboard_insert_form(request):
             return redirect('product_dashboard')
         
     else:
-        dashboard_form = CatalogInsertForm()
+        dashboard_form = DashboardInsertForm()
     
     return render(request, 'product/dashboard_add.html', {'dashboard_form': dashboard_form})
 
@@ -168,6 +168,51 @@ def dashboard_delete_form(request, slug):
     dashboard = get_object_or_404(Dashboard, slug=slug)
     dashboard.delete()
     return redirect('product_dashboard')
+
+# PRODUCT DOCUMENT VIEW
+@login_required
+def product_document(request):
+    document = Document.objects.all().order_by('-published')
+    return render(request, 'product/document.html', {'document': document})
+
+@login_required
+def product_document_details(request, slug):
+    document = get_object_or_404(Document, slug=slug)
+    return render(request, 'product/document_details.html', {'document': document})
+
+@login_required
+def document_insert_form(request):
+    if request.method == 'POST':
+        document_form = DocumentInsertForm(request.POST)
+
+        if document_form.is_valid():
+            document = document_form.save(commit=False)
+            document.author = request.user
+            document.save()
+            document_form.save_m2m()
+            return redirect('product_document')
+        
+    else:
+        document_form = DocumentInsertForm()
+    
+    return render(request, 'product/document_add.html', {'document_form': document_form})
+
+@login_required
+def document_update_form(request, slug):
+    document = get_object_or_404(Document, slug=slug)
+    form = DocumentUpdateForm(request.POST or None, instance=document)
+
+    if form.is_valid():
+        form.save()
+        return redirect('product_document')
+
+    return render(request, 'product/document_update.html', {'form':form})
+
+@login_required
+def document_delete_form(request, slug):
+    document = get_object_or_404(Document, slug=slug)
+    document.delete()
+    return redirect('product_document')
 
 # DOCUMENTATION VIEW
 @login_required
