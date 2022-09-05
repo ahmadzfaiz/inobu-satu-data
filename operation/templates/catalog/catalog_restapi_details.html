@@ -14,6 +14,7 @@
     <div class="container mt-4">
         <h1> {{catalog.title}} </h1>
         <h6> Published {{catalog.published}} by <i> {{catalog.author}} </i> </h6>
+        <span class="badge rounded-pill bg-warning text-dark">Format: {{catalog.category}}</span>
         {% for tag in catalog.tags.all %}
         <span class="badge rounded-pill bg-success">{{tag}}</span>
         {% endfor %}

@@ -17,7 +17,17 @@ class Tag(models.Model):
         return super(Tag, self).save(*args, **kwargs)
 
 class Catalog(models.Model):
+    LIST_CATEGORY_CHOICES = [
+        ('JSON', 'JavaScript Object Notation (JSON)'),
+        ('XML', 'Extensible Markup Language (XML)'),
+        ('WFS', 'Web Feature Service (WFS)'),
+        ('WMS', 'Web Map Service (WMS)'),
+        ('WMTS', 'Web Map Tile Service (WMTS)'),
+        ('XYZ', 'XYZ Tile Layer')
+    ]
+
     title = models.CharField(max_length=200, blank=False)
+    category = models.CharField(max_length=50, choices=LIST_CATEGORY_CHOICES, default='JSON')
     tags = models.ManyToManyField(Tag)
     url = models.URLField(max_length=200, unique=True, blank=False)
     description = models.TextField(blank=False)

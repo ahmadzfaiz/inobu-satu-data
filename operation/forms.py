@@ -26,12 +26,12 @@ class UserRegistration(forms.ModelForm):
 class CatalogInsertForm(forms.ModelForm):
     class Meta:
         model = Catalog
-        fields = ('title', 'tags', 'url', 'description')
+        fields = ('title', 'category', 'tags', 'url', 'description')
 
 class CatalogUpdateForm(forms.ModelForm):
     class Meta:
         model = Catalog
-        fields = ('title', 'tags', 'url', 'description')
+        fields = ('title', 'category', 'tags', 'url', 'description')
 
 class CatalogInsertTag(forms.ModelForm):
     class Meta:
