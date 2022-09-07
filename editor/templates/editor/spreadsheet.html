@@ -1,0 +1,49 @@
+<script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css" />
+ 
+<script src="https://jsuites.net/v4/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+
+
+<form action="" method="post" onsubmit="return constructFormset()">
+    {% csrf_token %}
+    <div id="spreadsheet"></div>
+    <input type="submit" value="Update Data" class="btn btn-success mt-2">
+</form>
+
+
+ 
+<script type="text/javascript">
+
+var data = []
+"{% for a in article %}"
+    var datum = ["{{a.title}}", "{{a.author}}" , "{{a.description}}"]
+    data.push(datum)
+"{% endfor %}"
+
+jspreadsheet(document.getElementById('spreadsheet'), {
+    data:data,
+    columns: [
+        {
+            type: 'text',
+            title:'Judul',
+            width:150
+        },
+        {
+            type: 'text',
+            title: 'Penulis',
+            width: 100
+        },
+        {
+            type: 'text',
+            title: 'Deskripsi',
+            width: 1000
+        }
+     ]
+});
+
+
+var total_non_empty_rows = 0;
+
+
+</script>
