@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     # Created Apps
     'api',
     'operation',
+    'editor',
 ]
 
 MIDDLEWARE = [

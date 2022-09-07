@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('', include('operation.urls')),
+    path('editor/', include('editor.urls')),
     path('auth/', obtain_auth_token),
 ]
 
