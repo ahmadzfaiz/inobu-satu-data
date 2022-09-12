@@ -8,5 +8,7 @@ class ArticleModel(admin.ModelAdmin):
 
 @admin.register(Petani)
 class PetaniModel(admin.ModelAdmin):
-    list_filter = ('nik', 'gelar_depan', 'nama_lengkap', 'gelar_belakang', 'jenis_kelamin', 'desa', 'kecamatan', 'kabupaten')
+    search_fields = ('nik', 'nama_lengkap')
+    list_filter = ('gelar_depan', 'gelar_belakang', 'jenis_kelamin', 'desa', 'kecamatan', 'kabupaten')
     list_display = ('nik', 'nama_lengkap', 'jenis_kelamin', 'id')
+    ordering = ('nik', 'nama_lengkap')
