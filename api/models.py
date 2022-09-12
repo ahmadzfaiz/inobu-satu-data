@@ -10,6 +10,10 @@ class Article(models.Model):
         return self.title
 
 class Petani(models.Model):
+    class Meta:
+        verbose_name = 'Petani'
+        verbose_name_plural = 'Petani'
+
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nik = models.CharField(max_length=16, unique=True)
     gelar_depan = models.CharField(max_length=50, blank=True)
@@ -29,3 +33,44 @@ class Petani(models.Model):
         self.kecamatan = self.kecamatan.upper()
         self.kabupaten = self.kabupaten.upper()
         return super(Petani, self).save(*args, **kwargs)
+
+class Sumber_Pendanaan(models.Model):
+    class Meta:
+        verbose_name = 'Sumber Pendanaan'
+        verbose_name_plural = 'Sumber Pendanaan'
+    
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    nama_donor =  models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nama_donor
+    
+    def save(self, *args, **kwargs):
+        self.nama_donor = self.nama_donor.upper()
+        return super(Sumber_Pendanaan, self).save(*args, **kwargs)
+
+class Kegiatan(models.Model):
+    class Meta:
+        verbose_name = 'Kegiatan'
+        verbose_name_plural = 'Kegiatan'
+
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    nama_kegiatan = models.CharField(max_length=100)
+    tanggal_kegiatan = models.DateField()
+    sumber_pendanaan = models.ForeignKey('Sumber_Pendanaan',on_delete=models.CASCADE, blank=True)
+    
+    def __str__(self):
+        return self.nama_kegiatan
+
+    def save(self, *args, **kwargs):
+        self.nama_kegiatan = self.nama_kegiatan.upper()
+        return super(Kegiatan, self).save(*args, **kwargs)
+
+class Kegiatan_Petani(models.Model):
+    class Meta:
+        verbose_name = 'Kegiatan Petani'
+        verbose_name_plural = 'Kegiatan Petani'
+    
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    id_kegiatan = models.ForeignKey('Kegiatan', on_delete=models.CASCADE)
+    id_petani = models.ForeignKey('Petani', on_delete=models.CASCADE)
