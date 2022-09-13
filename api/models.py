@@ -56,7 +56,8 @@ class Kegiatan(models.Model):
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nama_kegiatan = models.CharField(max_length=100)
-    tanggal_kegiatan = models.DateField()
+    tanggal_mulai_kegiatan = models.DateField()
+    tanggal_selesai_kegiatan = models.DateField()
     sumber_pendanaan = models.ForeignKey('Sumber_Pendanaan',on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):

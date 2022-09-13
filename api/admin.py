@@ -17,7 +17,7 @@ admin.site.register(Sumber_Pendanaan)
 
 @admin.register(Kegiatan)
 class KegiatanModel(admin.ModelAdmin):
-    list_display = ('id', 'nama_kegiatan', 'tanggal_kegiatan', 'sumber_pendanaan')
+    list_display = ('id', 'nama_kegiatan', 'tanggal_mulai_kegiatan', 'tanggal_selesai_kegiatan', 'sumber_pendanaan')
     raw_id_fields = ('sumber_pendanaan',)
 
 @admin.register(Kegiatan_Petani)
