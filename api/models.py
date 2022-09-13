@@ -1,6 +1,5 @@
 from django.db import models
 import uuid
-import datetime
 
 class Article(models.Model):
     title = models.CharField(max_length=100)

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$norgj11*0%xeil1vi+fd8yyti7&)zk=vy(!ov7!*m25qw5&u$'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -115,19 +116,19 @@ WSGI_APPLICATION = 'satudata.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daj59grl57q6nd',
-        'USER': 'msgbowdmkxmjoy',
-        'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
-        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
+        'NAME': config('DB_DEFAULT_NAME'),
+        'USER': config('DB_DEFAULT_USER'),
+        'PASSWORD': config('DB_DEFAULT_PASSWORD'),
+        'HOST': config('DB_DEFAULT_HOST'),
         'PORT': '5432',
     },
 
     'sql-query': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daj59grl57q6nd',
-        'USER': 'msgbowdmkxmjoy',
-        'PASSWORD': '6c02c37102f4f29b31b8d6bc1bd31fde0da5cf5df9e830060e70b09f846c4d95',
-        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com',
+        'NAME': config('DB_SQL_NAME'),
+        'USER': config('DB_SQL_USER'),
+        'PASSWORD': config('DB_SQL_PASSWORD'),
+        'HOST': config('DB_SQL_HOST'),
         'PORT': '5432',
         "OPTIONS": {
             "options": "-c default_transaction_read_only=on -c statement_timeout=100"
