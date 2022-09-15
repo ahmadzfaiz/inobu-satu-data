@@ -41,7 +41,7 @@ class KPI(models.Model):
         ordering = ('nama_kpi',)
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
-    nama_kpi = models.CharField(max_length=20, blank=False)
+    nama_kpi = models.CharField(max_length=100, blank=False)
     tahun_kpi = models.PositiveSmallIntegerField(validators=[MaxValueValidator(9999)])
 
     def __str__(self):
