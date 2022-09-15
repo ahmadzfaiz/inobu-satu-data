@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator
 import uuid
 
 class Article(models.Model):
@@ -34,6 +35,21 @@ class Petani(models.Model):
         self.kabupaten = self.kabupaten.upper()
         return super(Petani, self).save(*args, **kwargs)
 
+class KPI(models.Model):
+    class Meta:
+        verbose_name = 'Key Performance Indicator'
+        ordering = ('nama_KPI',)
+
+    nama_KPI = models.CharField(max_length=20, blank=False)
+    tahun_KPI = models.PositiveSmallIntegerField(validators=[MaxValueValidator(9999)])
+
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        self.nama_KPI = self.name.upper()
+        return super(KPI, self).save(*args, **kwargs)
+
 class Sumber_Pendanaan(models.Model):
     class Meta:
         verbose_name = 'Sumber Pendanaan'
@@ -53,11 +69,13 @@ class Kegiatan(models.Model):
     class Meta:
         verbose_name = 'Kegiatan'
         verbose_name_plural = 'Kegiatan'
+        ordering = ('nama_kegiatan',)
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nama_kegiatan = models.CharField(max_length=100)
     tanggal_mulai_kegiatan = models.DateField()
     tanggal_selesai_kegiatan = models.DateField()
+    kpi = models.ManyToManyField(KPI)
     sumber_pendanaan = models.ForeignKey('Sumber_Pendanaan',on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
