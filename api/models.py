@@ -38,7 +38,7 @@ class Petani(models.Model):
 class KPI(models.Model):
     class Meta:
         verbose_name = 'Key Performance Indicator'
-        ordering = ('nama_KPI',)
+        ordering = ('nama_kpi',)
 
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     nama_kpi = models.CharField(max_length=20, blank=False)
