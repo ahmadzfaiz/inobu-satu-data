@@ -27,8 +27,8 @@ class SumberPendanaanModel(admin.ModelAdmin):
 @admin.register(Kegiatan)
 class KegiatanModel(admin.ModelAdmin):
     search_fields = ('nama_kegiatan',)
-    list_display = ('id', 'nama_kegiatan', 'tanggal_mulai_kegiatan', 'tanggal_selesai_kegiatan', 'sumber_pendanaan')
-    list_filter = ('nama_kegiatan', 'kpi', 'tanggal_mulai_kegiatan', 'tanggal_selesai_kegiatan', 'sumber_pendanaan')
+    list_display = ('id', 'kpi', 'nama_kegiatan', 'tanggal_mulai_kegiatan', 'tanggal_selesai_kegiatan', 'sumber_pendanaan')
+    list_filter = ('nama_kegiatan', 'tanggal_mulai_kegiatan', 'tanggal_selesai_kegiatan', 'sumber_pendanaan')
     raw_id_fields = ('sumber_pendanaan',)
 
 @admin.register(Kegiatan_Petani)
