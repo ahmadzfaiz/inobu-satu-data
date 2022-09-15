@@ -45,10 +45,10 @@ class KPI(models.Model):
     tahun_kpi = models.PositiveSmallIntegerField(validators=[MaxValueValidator(9999)])
 
     def __str__(self):
-        return self.name
+        return self.nama_kpi
     
     def save(self, *args, **kwargs):
-        self.nama_KPI = self.name.upper()
+        self.nama_kpi = self.nama_kpi.upper()
         return super(KPI, self).save(*args, **kwargs)
 
 class Sumber_Pendanaan(models.Model):

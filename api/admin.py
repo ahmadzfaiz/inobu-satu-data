@@ -16,7 +16,7 @@ class PetaniModel(admin.ModelAdmin):
 @admin.register(KPI)
 class KPIModel(admin.ModelAdmin):
     search_fields = ('nama_kpi',)
-    list_display = ('nama_kpi', 'tahun_kpi')
+    list_display = ('id', 'nama_kpi', 'tahun_kpi')
     list_filter = ('tahun_kpi',)
 
 @admin.register(Sumber_Pendanaan)
