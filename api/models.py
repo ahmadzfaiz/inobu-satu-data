@@ -40,8 +40,9 @@ class KPI(models.Model):
         verbose_name = 'Key Performance Indicator'
         ordering = ('nama_KPI',)
 
-    nama_KPI = models.CharField(max_length=20, blank=False)
-    tahun_KPI = models.PositiveSmallIntegerField(validators=[MaxValueValidator(9999)])
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    nama_kpi = models.CharField(max_length=20, blank=False)
+    tahun_kpi = models.PositiveSmallIntegerField(validators=[MaxValueValidator(9999)])
 
     def __str__(self):
         return self.name

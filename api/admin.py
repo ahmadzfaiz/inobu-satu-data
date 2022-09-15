@@ -13,7 +13,16 @@ class PetaniModel(admin.ModelAdmin):
     list_display = ('nik', 'nama_lengkap', 'jenis_kelamin', 'id')
     ordering = ('nama_lengkap', 'nik')
 
-admin.site.register(Sumber_Pendanaan)
+@admin.register(KPI)
+class KPIModel(admin.ModelAdmin):
+    search_fields = ('nama_kpi',)
+    list_display = ('nama_kpi', 'tahun_kpi')
+    list_filter = ('tahun_kpi',)
+
+@admin.register(Sumber_Pendanaan)
+class SumberPendanaanModel(admin.ModelAdmin):
+    search_fields = ('nama_donor',)
+    list_display = ('nama_donor',)
 
 @admin.register(Kegiatan)
 class KegiatanModel(admin.ModelAdmin):
