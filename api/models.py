@@ -75,6 +75,3 @@ class Kegiatan_Petani(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     id_kegiatan = models.ForeignKey('Kegiatan', on_delete=models.CASCADE)
     id_petani = models.ForeignKey('Petani', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.id
