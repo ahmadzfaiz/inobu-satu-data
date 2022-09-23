@@ -73,8 +73,8 @@ def catalog_restapi(request):
 
     return render(request, 'catalog/catalog_restapi.html', {'catalog_list': catalog})
 
-# @permission_required(['operation.add_catalog'])
 @login_required
+@permission_required(['operation.add_catalog'])
 def catalog_insert_form(request):
     if request.method == 'POST':
         catalog_form = CatalogInsertForm(request.POST)
@@ -92,6 +92,7 @@ def catalog_insert_form(request):
     return render(request, 'catalog/catalog_restapi_add.html', {'catalog_form': catalog_form})
 
 @login_required
+@permission_required(['operation.change_catalog'])
 def catalog_update_form(request, slug):
     catalog = get_object_or_404(Catalog, slug=slug)
     form = CatalogUpdateForm(request.POST or None, instance=catalog)
@@ -103,17 +104,21 @@ def catalog_update_form(request, slug):
     return render(request, 'catalog/catalog_restapi_update.html', {'form':form})
 
 @login_required
+@permission_required(['operation.delete_catalog'])
 def catalog_delete_form(request, slug):
     catalog = get_object_or_404(Catalog, slug=slug)
     catalog.delete()
     return redirect('catalog_api')
 
 @login_required
+@permission_required(['operation.view_catalog'])
 def catalog_details(request, slug):
     catalog = get_object_or_404(Catalog, slug=slug)
     return render(request, 'catalog/catalog_restapi_details.html', {'catalog': catalog})
 
+# TAG ADD
 @login_required
+@permission_required(['operation.add_tag'])
 def catalog_insert_tag(request):
     tag_list = Tag.objects.all()
 
@@ -132,6 +137,7 @@ def catalog_insert_tag(request):
 
 # PRODUCT DASHBOARD VIEW
 @login_required
+@permission_required(['operation.view_dashboard'])
 def product_dashboard(request):
     if 'q' in request.GET:
         q = request.GET['q']
@@ -143,11 +149,13 @@ def product_dashboard(request):
     return render(request, 'product/dashboard.html', {'dashboard': dashboard})
 
 @login_required
+@permission_required(['operation.view_dashboard'])
 def product_dashboard_details(request, slug):
     dashboard = get_object_or_404(Dashboard, slug=slug)
     return render(request, 'product/dashboard_details.html', {'dashboard': dashboard})
 
 @login_required
+@permission_required(['operation.add_dashboard'])
 def dashboard_insert_form(request):
     if request.method == 'POST':
         dashboard_form = DashboardInsertForm(request.POST)
@@ -165,6 +173,7 @@ def dashboard_insert_form(request):
     return render(request, 'product/dashboard_add.html', {'dashboard_form': dashboard_form})
 
 @login_required
+@permission_required(['operation.change_dashboard'])
 def dashboard_update_form(request, slug):
     dashboard = get_object_or_404(Dashboard, slug=slug)
     form = DashboardUpdateForm(request.POST or None, instance=dashboard)
@@ -176,6 +185,7 @@ def dashboard_update_form(request, slug):
     return render(request, 'product/dashboard_update.html', {'form':form})
 
 @login_required
+@permission_required(['operation.delete_dashboard'])
 def dashboard_delete_form(request, slug):
     dashboard = get_object_or_404(Dashboard, slug=slug)
     dashboard.delete()
@@ -183,6 +193,7 @@ def dashboard_delete_form(request, slug):
 
 # PRODUCT DOCUMENT VIEW
 @login_required
+@permission_required(['operation.view_document'])
 def product_document(request):
     if 'q' in request.GET:
         q = request.GET['q']
@@ -190,15 +201,17 @@ def product_document(request):
 
     else:
         document = Document.objects.all().order_by('-published')
-        
+
     return render(request, 'product/document.html', {'document': document})
 
 @login_required
+@permission_required(['operation.view_document'])
 def product_document_details(request, slug):
     document = get_object_or_404(Document, slug=slug)
     return render(request, 'product/document_details.html', {'document': document})
 
 @login_required
+@permission_required(['operation.add_document'])
 def document_insert_form(request):
     if request.method == 'POST':
         document_form = DocumentInsertForm(request.POST)
@@ -216,6 +229,7 @@ def document_insert_form(request):
     return render(request, 'product/document_add.html', {'document_form': document_form})
 
 @login_required
+@permission_required(['operation.change_document'])
 def document_update_form(request, slug):
     document = get_object_or_404(Document, slug=slug)
     form = DocumentUpdateForm(request.POST or None, instance=document)
@@ -227,6 +241,7 @@ def document_update_form(request, slug):
     return render(request, 'product/document_update.html', {'form':form})
 
 @login_required
+@permission_required(['operation.delete_document'])
 def document_delete_form(request, slug):
     document = get_object_or_404(Document, slug=slug)
     document.delete()
