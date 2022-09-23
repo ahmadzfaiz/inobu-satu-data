@@ -64,7 +64,13 @@ def my_profile(request):
 @login_required
 @permission_required(['operation.view_catalog'])
 def catalog_restapi(request):
-    catalog = Catalog.objects.all().order_by('-published')
+    if 'q' in request.GET:
+        q = request.GET['q']
+        catalog = Catalog.objects.filter(title__icontains=q).order_by('-published')
+
+    else:
+        catalog = Catalog.objects.all().order_by('-published')
+
     return render(request, 'catalog/catalog_restapi.html', {'catalog_list': catalog})
 
 # @permission_required(['operation.add_catalog'])
