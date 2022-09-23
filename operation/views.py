@@ -133,7 +133,13 @@ def catalog_insert_tag(request):
 # PRODUCT DASHBOARD VIEW
 @login_required
 def product_dashboard(request):
-    dashboard = Dashboard.objects.all().order_by('-published')
+    if 'q' in request.GET:
+        q = request.GET['q']
+        dashboard = Dashboard.objects.filter(title__icontains=q).order_by('-published')
+    
+    else:
+        dashboard = Dashboard.objects.all().order_by('-published')
+
     return render(request, 'product/dashboard.html', {'dashboard': dashboard})
 
 @login_required
@@ -178,7 +184,13 @@ def dashboard_delete_form(request, slug):
 # PRODUCT DOCUMENT VIEW
 @login_required
 def product_document(request):
-    document = Document.objects.all().order_by('-published')
+    if 'q' in request.GET:
+        q = request.GET['q']
+        document = Document.objects.filter(title__icontains=q).order_by('-published')
+
+    else:
+        document = Document.objects.all().order_by('-published')
+        
     return render(request, 'product/document.html', {'document': document})
 
 @login_required
