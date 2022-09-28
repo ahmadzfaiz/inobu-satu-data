@@ -5,7 +5,7 @@ import uuid
 class Article(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
-    year = models.SmallIntegerField(validators=[MaxValueValidator(1900), MinValueValidator(2100)])
+    year = models.SmallIntegerField(validators=[MaxValueValidator(2100), MinValueValidator(1900)])
     description = models.TextField()
     rating = models.SmallIntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
 
