@@ -1,11 +1,13 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 import uuid
 
 class Article(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
+    year = models.SmallIntegerField(validators=[MaxValueValidator(1900), MinValueValidator(2100)])
     description = models.TextField()
+    rating = models.SmallIntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
 
     def __str__(self):
         return self.title
